@@ -78,39 +78,37 @@ function Employees() {
   }
 
   return (
-    <div className="px-2 mt-10">
-      <main>
-        {showEmployee ? (
-          <>
-            <AddEmployee newEmployee={newEmployee} />
-            <div className="flex flex-wrap">
-              {employees.map((employee) => {
-                const editEmployee = (
-                  <EditEmployee
-                    id={employee.id}
-                    name={employee.name}
-                    role={employee.role}
-                    updateEmployee={updateEmployee}
-                  />
-                );
-                return (
-                  <Employee
-                    key={employee.id}
-                    id={employee.id}
-                    name={employee.name}
-                    role={employee.role}
-                    img={employee.img}
-                    editEmployee={editEmployee}
-                  />
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <p>You cannot see the employees</p>
-        )}
-      </main>
-    </div>
+    <main>
+      {showEmployee ? (
+        <>
+          <AddEmployee newEmployee={newEmployee} />
+          <div className="flex flex-wrap">
+            {employees.map((employee) => {
+              const editEmployee = (
+                <EditEmployee
+                  id={employee.id}
+                  name={employee.name}
+                  role={employee.role}
+                  updateEmployee={updateEmployee}
+                />
+              );
+              return (
+                <Employee
+                  key={employee.id}
+                  id={employee.id}
+                  name={employee.name}
+                  role={employee.role}
+                  img={employee.img}
+                  editEmployee={editEmployee}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <p>You cannot see the employees</p>
+      )}
+    </main>
   );
 }
 

@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link, NavLink } from "react-router-dom";
 
 const navigation = [
-  { name: "About", href: "/about", current: true },
-  { name: "Employees", href: "/employees", current: false },
-  { name: "Projects", href: "/", current: false },
-  { name: "Calendar", href: "/", current: false },
+  { name: "About", href: "/about" },
+  { name: "Employees", href: "/employees" },
+  { name: "Projects", href: "/project" },
+  { name: "Calendar", href: "/" },
 ];
 
 function classNames(...classes) {
@@ -34,24 +35,27 @@ export default function Navbar(props) {
                 </div>
                 <div className="select-none flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center text-white ">
-                    <h3>PplCity - PC</h3>
+                    <Link className="navbar-brand" to="/">
+                      <h3>PplCity - PC</h3>
+                    </Link>
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <NavLink
                           key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "no-underline bg-gray-900 text-white"
-                              : "no-underline text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "rounded-md px-3 py-2 text-sm font-medium"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
+                          to={item.href}
+                          className={({ isActive }) => {
+                            return (
+                              "rounded-md px-3 py-2 text-sm font-medium no-underline " +
+                              (isActive
+                                ? " bg-gray-900 text-white"
+                                : "text-gray-300 hover:bg-gray-700 hover:text-white")
+                            );
+                          }}
                         >
                           {item.name}
-                        </a>
+                        </NavLink>
                       ))}
                     </div>
                   </div>
@@ -89,41 +93,41 @@ export default function Navbar(props) {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="/profile"
+                            <NavLink
+                              to="/settings"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "no-underline block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
                               Your Profile
-                            </a>
+                            </NavLink>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="/settings"
+                            <NavLink
+                              to="/settings"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "no-underline block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
                               Settings
-                            </a>
+                            </NavLink>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="/sign-out"
+                            <NavLink
+                              to="/sign-out"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "no-underline block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
                               Sign out
-                            </a>
+                            </NavLink>
                           )}
                         </Menu.Item>
                       </Menu.Items>
@@ -136,27 +140,42 @@ export default function Navbar(props) {
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2">
                 {navigation.map((item) => (
-                  <Disclosure.Button
+                  <NavLink
                     key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block rounded-md px-3 py-2 text-base font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
+                    to={item.href}
+                    className={({ isActive }) => {
+                      return (
+                        "block rounded-md px-3 py-2 text-base font-medium no-underline " +
+                        (isActive
+                          ? " bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white")
+                      );
+                    }}
                   >
                     {item.name}
-                  </Disclosure.Button>
+                  </NavLink>
                 ))}
               </div>
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
-      {props.children}
+      {/* Content  */}
+      <div className="bg-gray-300 bg-opacity-25">
+        <div className="max-w-7xl mx-auto px-2 py-10 min-h-screen">
+          {props.children}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className=" bg-gray-800 text-white text-center">
+        <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+          Made with ❤️ by{" "}
+          <a href="/" className="text-gray-400 hover:text-gray-300">
+            PplCity
+          </a>
+        </div>
+      </footer>
     </>
   );
 }
