@@ -6,14 +6,3 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background-color: rgb(209 213 219 / 20%);
-}
-.App-header {
-  background-color: #282c34;
-  display: flex;
-  height: 6vh;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
